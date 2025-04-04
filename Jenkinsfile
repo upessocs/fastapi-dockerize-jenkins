@@ -17,8 +17,8 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', 
-                url: 'https://github.com/upessocs/devops-test-automation-jenkinsfile.git'
+                git url: 'https://github.com/upessocs/devops-test-automation-jenkinsfile.git',
+                branch: 'main'
             }
         }
         
@@ -44,7 +44,8 @@ pipeline {
                     def fullTag = "${env.DOCKER_IMAGE}:${params.IMAGE_TAG}-${env.BUILD_NUMBER}"
                     sh """
                         echo "Logging into Docker Hub..."
-                        docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW
+                        
+                        echo ${DOCKERHUB_CREDENTIALS} | docker login -u "prateekrajgautam" --password-stdin
                         echo "Building Docker image with tag: ${fullTag}"
                         docker build -t ${fullTag} .
                         echo "Pushing image to Docker Hub..."
