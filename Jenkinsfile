@@ -23,14 +23,14 @@ pipeline {
         stage('Build & Push Docker Image') {
             steps {
                 script {
-                    withCredentials([usernamePassword(
+                    // Assuming 'dockerhub-creds' is a Docker Hub password/PAT (Secret text)
+                    withCredentials([string(
                         credentialsId: 'dockerhub-creds',
-                        usernameVariable: 'DOCKER_USER',
-                        passwordVariable: 'DOCKER_PASS'
+                        variable: 'DOCKER_PASS'
                     )]) {
                         def fullTag = "${env.DOCKER_IMAGE}:${params.IMAGE_TAG}-${env.BUILD_NUMBER}"
                         sh """
-                            docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+                            docker login -u prateekrajgautam -p ${DOCKER_PASS}
                             docker build -t ${fullTag} .
                             docker push ${fullTag}
                         """
