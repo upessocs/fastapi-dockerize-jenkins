@@ -30,7 +30,7 @@ pipeline {
                     )]) {
                         def fullTag = "${env.DOCKER_IMAGE}:${params.IMAGE_TAG}-${env.BUILD_NUMBER}"
                         sh '''
-                            echo ${DOCKER_PASS} | docker login -u prateekrajgautam -password-stdin 
+                            echo ${DOCKER_PASS} | docker login -u prateekrajgautam --password-stdin 
                             docker build -t ${fullTag} .
                             docker push ${fullTag}
                         '''
