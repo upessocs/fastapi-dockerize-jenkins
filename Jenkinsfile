@@ -17,7 +17,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git url: 'https://github.com/upessocs/devops-test-automation-jenkinsfile.git',
+                git url: 'https://github.com/upessocs/fastapi-dockerize-jenkins.git',
                 branch: 'main'
             }
         }
