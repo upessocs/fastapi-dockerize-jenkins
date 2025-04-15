@@ -1,5 +1,15 @@
 pipeline {
-    agent any
+    // agent any
+    agent {
+        // docker {
+        //     image 'docker:latest'
+        //     args '-u root:root'
+        // }
+        docker {
+            image 'docker:latest'  // Uses a Docker-in-Docker (DinD) container
+            args '-v /var/run/docker.sock:/var/run/docker.sock'  // Shares host Docker socket
+        }
+    }
     
     environment {
         DOCKER_IMAGE = 'prateekrajgautam/devops-test-automation'
