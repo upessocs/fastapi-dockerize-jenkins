@@ -22,21 +22,7 @@ pipeline {
             }
         }
         
-        stage('Verify Files') {
-            steps {
-                sh '''
-                    echo "Checking project files..."
-                    ls -la
-                    pwd
-                    echo "\n=== main.py ==="
-                    cat main.py
-                    echo "\n=== Dockerfile ==="
-                    cat Dockerfile
-                    echo "\n=== requirements.txt ==="
-                    cat requirements.txt
-                '''
-            }
-        }
+       
         
         stage('Build & Push Docker Image') {
             steps {
@@ -53,7 +39,7 @@ pipeline {
                     echo "Docker Hub description: ${DOCKERHUB_CREDENTIALS_DESCRIPTION}"
                     echo "Docker Hub scope: ${DOCKERHUB_CREDENTIALS_SCOPE}"
                     echo "Docker Hub secret: ${DOCKERHUB_CREDENTIALS_SECRET}"
-                    sh """
+                    sh '''
                         echo "Logging into Docker Hub..."
                         
                         echo ${DOCKERHUB_CREDENTIALS} | docker login -u "prateekrajgautam" --password-stdin
@@ -61,7 +47,7 @@ pipeline {
                         docker build -t ${fullTag} .
                         echo "Pushing image to Docker Hub..."
                         docker push ${fullTag}
-                    """
+                    '''
                 }
             }
         }
