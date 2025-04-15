@@ -42,6 +42,17 @@ pipeline {
             steps {
                 script {
                     def fullTag = "${env.DOCKER_IMAGE}:${params.IMAGE_TAG}-${env.BUILD_NUMBER}"
+                    echo "Full Docker image tag: ${fullTag}"
+                    echo "Building Docker image with tag: ${fullTag}"
+                    echo "Using Docker Hub credentials: ${DOCKERHUB_CREDENTIALS}"
+                    echo "Docker Hub username: prateekrajgautam"
+                    echo "Docker Hub password: ${DOCKERHUB_CREDENTIALS_PSW}"
+                    echo "Docker Hub email: ${DOCKERHUB_CREDENTIALS_EMAIL}"
+                    echo "Docker Hub server: ${DOCKERHUB_CREDENTIALS_SERVER}"
+                    echo "Docker Hub ID: ${DOCKERHUB_CREDENTIALS_ID}"
+                    echo "Docker Hub description: ${DOCKERHUB_CREDENTIALS_DESCRIPTION}"
+                    echo "Docker Hub scope: ${DOCKERHUB_CREDENTIALS_SCOPE}"
+                    echo "Docker Hub secret: ${DOCKERHUB_CREDENTIALS_SECRET}"
                     sh """
                         echo "Logging into Docker Hub..."
                         
