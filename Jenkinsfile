@@ -1,8 +1,7 @@
 pipeline {
     // agent any
     agent {
-        dockerfile true,
-        file: 'BuildAgent.Dockerfile'
+        dockerfile true
     }   
     
     environment {
@@ -30,7 +29,7 @@ pipeline {
                 script {
                     def fullTag = "${env.DOCKER_IMAGE}:${params.IMAGE_TAG}-${env.BUILD_NUMBER}"
                     sh '''
-                        docker build -t ${fullTag} .
+                        docker build -t ${fullTag} -f AppBuild.Dockerfile .
                     '''
                 }
             }
