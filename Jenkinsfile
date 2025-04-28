@@ -1,15 +1,9 @@
 pipeline {
-    agent any
-    // agent {
-    //     docker {
-    //         image 'docker:latest'
-    //         args '-u root:root'
-    //     }
-    //     // docker {
-    //     //     image 'docker:latest'  // Uses a Docker-in-Docker (DinD) container
-    //     //     args '-v /var/run/docker.sock:/var/run/docker.sock'  // Shares host Docker socket
-    //     // }
-    // }
+    // agent any
+    agent {
+        dockerfile true,
+        file: 'BuildAgent.Dockerfile'
+    }   
     
     environment {
         DOCKER_IMAGE = 'prateekrajgautam/devops-test-automation'
@@ -30,27 +24,7 @@ pipeline {
             }
         }
 
-        stage("dockerinstall"){
-            steps {
-                script {
-                    // Install Docker if not already installed
-                    sh '''
-                        if ! command -v docker &> /dev/null; then
-                            echo "Docker not found, installing..."
-                            sudo usermod -aG docker jenkins
-                            sudo apt-get update
-                            sudo apt-get install -y docker.io
-                            sudo systemctl start docker
-                            sudo systemctl enable docker
-                            sudo docker run hello-world
-                            docker --version
-                        else
-                            echo "Docker is already installed."
-                        fi
-                    '''
-                }
-            }   
-        }
+
         
         stage('Build & Push Docker Image') {
             steps {
