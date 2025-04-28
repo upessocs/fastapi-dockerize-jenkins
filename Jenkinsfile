@@ -12,7 +12,7 @@ pipeline {
     parameters {
         string(
             name: 'IMAGE_TAG', 
-            defaultValue: 'v0.${buildNumber}', 
+            defaultValue: 'v0.1', 
             description: 'Docker image tag version'
         )
     }
@@ -30,7 +30,7 @@ pipeline {
                 script {
                     def fullTag = "${env.DOCKER_IMAGE}:${params.IMAGE_TAG}-${env.BUILD_NUMBER}"
                     sh '''
-                        docker build -t ${fullTag} -f AppBuild.Dockerfile .
+                        docker build -t ${fullTag} .
                     '''
                 }
             }
@@ -54,16 +54,16 @@ pipeline {
             }
         }
 
-        stage('Cleanup') {
-            steps {
-                script {
-                    def fullTag = "${env.DOCKER_IMAGE}:${params.IMAGE_TAG}-${env.BUILD_NUMBER}"
-                    sh '''
-                        docker rmi ${fullTag}
-                    '''
-                }
-            }
-        }
+        // stage('Cleanup') {
+        //     steps {
+        //         script {
+        //             def fullTag = "${env.DOCKER_IMAGE}:${params.IMAGE_TAG}-${env.BUILD_NUMBER}"
+        //             sh '''
+        //                 docker rmi ${fullTag}
+        //             '''
+        //         }
+        //     }
+        // }
     }
 
 
