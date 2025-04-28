@@ -1,5 +1,9 @@
 pipeline {
-    agent { dockerfile true   }   
+    agent {
+        dockerfile {
+            filename 'Agent.Dockerfile'
+        }
+    }
     
     environment {
         DOCKER_IMAGE = 'prateekrajgautam/devops-test-automation'
