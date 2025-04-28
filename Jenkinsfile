@@ -1,7 +1,7 @@
 pipeline {
     // agent any
     agent {
-        dockerfile true
+        dockerfile: true
     }   
     
     environment {
